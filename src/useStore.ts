@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from "react";
-import type { BaseStore, NestedKeyOf } from "./base-store";
+import { useSyncExternalStore } from "use-sync-external-store/shim";
+import { BaseStore, NestedKeyOf } from "./base-store";
 
 /**
  * Generic React hook to bind a BaseStore to React re-renders.

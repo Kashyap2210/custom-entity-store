@@ -1,0 +1,48 @@
+{
+  "name": "entity-storekit",
+  "version": "1.0.0",
+  "description": "Entity-first, type-safe state management for React-TypeScript.",
+  "homepage": "https://github.com/Kashyap2210/custom-entity-store#readme",
+  "bugs": {
+    "url": "https://github.com/Kashyap2210/custom-entity-store/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kashyap2210/custom-entity-store.git"
+  },
+  "license": "ISC",
+  "author": "Macedon Inc.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
+    "full-publish": "npm run build && npm version patch && git push --follow-tags && npm publish",
+    "publish:beta": "npm run build && npm version prerelease --preid=beta && npm publish --tag beta && git push --follow-tags",
+    "link": "npm run build && npm link"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/use-sync-external-store": "^1.5.0",
+    "react": "^19.2.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "use-sync-external-store": "^1.6.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+}

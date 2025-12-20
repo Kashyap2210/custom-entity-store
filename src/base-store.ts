@@ -1,116 +1,3 @@
-// export type Listener = () => void;
-
-// /**
-//  * Generic, strongly-typed store for managing entities of type T.
-//  * Uses a Map keyed by T[K] (where K is the key property name).
-//  */
-// export class BaseStore<T, K extends keyof T> {
-//   protected data: Map<T[K], T> = new Map();
-//   private listeners: Set<Listener> = new Set();
-//   private readonly key: K;
-
-//   // --- New caching fields ---
-//   private cachedArray: T[] = [];
-//   private cacheDirty = true;
-
-//   constructor(key: K) {
-//     this.key = key;
-//   }
-
-//   /**
-//    * Subscribe to state changes.
-//    * Returns an unsubscribe function.
-//    */
-//   subscribe(listener: Listener): () => void {
-//     this.listeners.add(listener);
-//     return () => this.listeners.delete(listener);
-//   }
-
-//   /** Notify all subscribers of a state change. */
-//   protected emit(): void {
-//     // Mark cache as dirty and notify subscribers
-//     this.cacheDirty = true;
-//     for (const listener of this.listeners) {
-//       listener();
-//     }
-//   }
-
-//   /** Create or update an entity. */
-//   set(entity: T): void {
-//     const keyValue = entity[this.key];
-//     this.data.set(keyValue, entity);
-//     this.emit();
-//   }
-
-//   setMany(entities: T[]): void {
-//     let changed = false;
-//     for (const entity of entities) {
-//       const keyValue = entity[this.key];
-//       this.data.set(keyValue, entity);
-//       changed = true;
-//     }
-//     if (changed) this.emit();
-//   }
-
-//   /** Get an entity by key value. */
-//   get(keyValue: T[K]): T | undefined {
-//     return this.data.get(keyValue);
-//   }
-
-//   /** Get all entities as an array. */
-//   getAll(): T[] {
-//     if (!this.cacheDirty) return this.cachedArray;
-//     this.cachedArray = Array.from(this.data.values());
-//     this.cacheDirty = false;
-//     return this.cachedArray;
-//   }
-
-//   /** Delete an entity by key value. */
-//   delete(keyValue: T[K]): void {
-//     if (this.data.delete(keyValue)) {
-//       this.emit();
-//     }
-//   }
-
-//   update(keyValue: T[K], partial: Partial<T>): void {
-//     const existing = this.data.get(keyValue);
-//     if (!existing) return;
-
-//     const updated = { ...existing, ...partial };
-//     this.data.set(keyValue, updated);
-//     this.emit();
-//   }
-
-//   /** Clear all entities. */
-//   clear(): void {
-//     if (this.data.size > 0) {
-//       this.data.clear();
-//       this.emit();
-//     }
-//   }
-
-//   /** Check if an entity exists by key value. */
-//   has(keyValue: T[K]): boolean {
-//     return this.data.has(keyValue);
-//   }
-
-//   /** Number of entities in the store. */
-//   count(): number {
-//     return this.data.size;
-//   }
-
-//   /** Convert the store to a serializable structure. */
-//   toJSON(): [T[K], T][] {
-//     return Array.from(this.data.entries());
-//   }
-
-//   /** Restore store state from serialized data. */
-//   fromJSON(json: [T[K], T][]): void {
-//     this.data = new Map(json);
-//     this.emit();
-//   }
-// }
-
 export type NestedKeyOf<T> = T extends object
   ? {
       [K in keyof T & (string | number)]: T[K] extends object
@@ -276,3 +163,116 @@ export class BaseStore<T, K extends NestedKeyOf<T>> {
     this.emit();
   }
 }
+
+// export type Listener = () => void;
+
+// /**
+//  * Generic, strongly-typed store for managing entities of type T.
+//  * Uses a Map keyed by T[K] (where K is the key property name).
+//  */
+// export class BaseStore<T, K extends keyof T> {
+//   protected data: Map<T[K], T> = new Map();
+//   private listeners: Set<Listener> = new Set();
+//   private readonly key: K;
+
+//   // --- New caching fields ---
+//   private cachedArray: T[] = [];
+//   private cacheDirty = true;
+
+//   constructor(key: K) {
+//     this.key = key;
+//   }
+
+//   /**
+//    * Subscribe to state changes.
+//    * Returns an unsubscribe function.
+//    */
+//   subscribe(listener: Listener): () => void {
+//     this.listeners.add(listener);
+//     return () => this.listeners.delete(listener);
+//   }
+
+//   /** Notify all subscribers of a state change. */
+//   protected emit(): void {
+//     // Mark cache as dirty and notify subscribers
+//     this.cacheDirty = true;
+//     for (const listener of this.listeners) {
+//       listener();
+//     }
+//   }
+
+//   /** Create or update an entity. */
+//   set(entity: T): void {
+//     const keyValue = entity[this.key];
+//     this.data.set(keyValue, entity);
+//     this.emit();
+//   }
+
+//   setMany(entities: T[]): void {
+//     let changed = false;
+//     for (const entity of entities) {
+//       const keyValue = entity[this.key];
+//       this.data.set(keyValue, entity);
+//       changed = true;
+//     }
+//     if (changed) this.emit();
+//   }
+
+//   /** Get an entity by key value. */
+//   get(keyValue: T[K]): T | undefined {
+//     return this.data.get(keyValue);
+//   }
+
+//   /** Get all entities as an array. */
+//   getAll(): T[] {
+//     if (!this.cacheDirty) return this.cachedArray;
+//     this.cachedArray = Array.from(this.data.values());
+//     this.cacheDirty = false;
+//     return this.cachedArray;
+//   }
+
+//   /** Delete an entity by key value. */
+//   delete(keyValue: T[K]): void {
+//     if (this.data.delete(keyValue)) {
+//       this.emit();
+//     }
+//   }
+
+//   update(keyValue: T[K], partial: Partial<T>): void {
+//     const existing = this.data.get(keyValue);
+//     if (!existing) return;
+
+//     const updated = { ...existing, ...partial };
+//     this.data.set(keyValue, updated);
+//     this.emit();
+//   }
+
+//   /** Clear all entities. */
+//   clear(): void {
+//     if (this.data.size > 0) {
+//       this.data.clear();
+//       this.emit();
+//     }
+//   }
+
+//   /** Check if an entity exists by key value. */
+//   has(keyValue: T[K]): boolean {
+//     return this.data.has(keyValue);
+//   }
+
+//   /** Number of entities in the store. */
+//   count(): number {
+//     return this.data.size;
+//   }
+
+//   /** Convert the store to a serializable structure. */
+//   toJSON(): [T[K], T][] {
+//     return Array.from(this.data.entries());
+//   }
+
+//   /** Restore store state from serialized data. */
+//   fromJSON(json: [T[K], T][]): void {
+//     this.data = new Map(json);
+//     this.emit();
+//   }
+// }

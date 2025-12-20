@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    /* Basic Setup */
+    "target": "ES2020" /* Modern JS features, good tree-shaking */,
+    "module": "ESNext" /* We'll handle CJS/ESM via build tool or dual build */,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ] /* Include necessary libs for React/TS */,
+    "jsx": "react-jsx" /* Correct JSX transform for React 17+ */,
+
+    /* Output */
+    "outDir": "dist" /* All emitted files go here */,
+    "declaration": true /* Generate .d.ts files */,
+    "declarationMap": true /* Helpful for IDE navigation */,
+    "sourceMap": true /* Debugging support */,
+
+    /* Module Resolution */
+    "moduleResolution": "node",
+    "esModuleInterop": true /* Better CommonJS interop */,
+    "allowSyntheticDefaultImports": true /* Cleaner React imports */,
+
+    /* Type Safety */
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    /* Advanced */
+    "isolatedModules": true /* Required for some bundlers (Vite, esbuild) */
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

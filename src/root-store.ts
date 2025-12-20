@@ -1,4 +1,4 @@
-import type { BaseStore } from "./base-store";
+import { BaseStore } from "./base-store";
 
 /**
  * Fully generic RootStore compatible with BaseStore<T, K>.
