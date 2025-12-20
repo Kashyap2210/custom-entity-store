@@ -1,6 +1,6 @@
 {
   "name": "entity-storekit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Entity-first, type-safe state management for React-TypeScript.",
   "homepage": "https://github.com/Kashyap2210/custom-entity-store#readme",
   "bugs": {
