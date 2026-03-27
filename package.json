@@ -19,8 +19,12 @@
     "build": "tsup",
     "prepublishOnly": "npm run build",
     "full-publish": "npm run build && npm version patch && git push --follow-tags && npm publish",
+    "major-publish": "npm version major",
+    "minor-publish": "npm version minor",
     "publish:beta": "npm run build && npm version prerelease --preid=beta && npm publish --tag beta && git push --follow-tags",
-    "link": "npm run build && npm link"
+    "link": "npm run build && npm link",
+    "preversion": "npm run build && git add -A dist",
+    "postversion": "git push --follow-tags && npm publish"
   },
   "peerDependencies": {
     "react": ">=18.0.0"
@@ -40,9 +44,9 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     }
   }
 }
