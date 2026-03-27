@@ -23,7 +23,7 @@
     "minor-publish": "npm version minor",
     "publish:beta": "npm run build && npm version prerelease --preid=beta && npm publish --tag beta && git push --follow-tags",
     "link": "npm run build && npm link",
-    "preversion": "npm run build && git add -A dist",
+    "preversion": "npm run build",
     "postversion": "git push --follow-tags && npm publish"
   },
   "peerDependencies": {
